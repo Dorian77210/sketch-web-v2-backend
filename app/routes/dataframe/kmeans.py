@@ -19,5 +19,6 @@ class KMeansRoute(Resource):
 
         return jsonify({
             'success': True,
-            'result': result
+            'labels': result['labels'],
+            'centroids': result['centroids']
         })

@@ -16,7 +16,7 @@ class DataFrameService:
 
         result = {
             'centroids': np.array([k.cluster_centers_]).tolist(),
-            'labels': np.array([k.labels_]).tolist()
+            'labels': np.array(k.labels_).tolist()
         }
 
         return result
