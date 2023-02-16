@@ -1,11 +1,7 @@
 import pandas as pd
 from sklearn.cluster import KMeans
-import json
-from pandas import json_normalize
 from sklearn import preprocessing
-
 import numpy as np
-
 from io import StringIO
 
 class DataFrameService:
@@ -23,3 +19,19 @@ class DataFrameService:
         }
 
         return result
+
+    def elbowMethod(csvData, maxCluster: int):
+        input_data = pd.read_csv(StringIO(csvData), sep=',')
+        x_scaled = preprocessing.scale(input_data)
+
+        inertias = []
+
+        for i in range(1, maxCluster):
+            kmeans = KMeans(i)
+            kmeans.fit(x_scaled)
+            inertias.append({
+                'cluster': i,
+                'inertia': kmeans.inertia_
+            })
+
+        return inertias
