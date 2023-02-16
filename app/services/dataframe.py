@@ -24,14 +24,15 @@ class DataFrameService:
         input_data = pd.read_csv(StringIO(csvData), sep=',')
         x_scaled = preprocessing.scale(input_data)
 
-        inertias = []
+        result = {
+            'clusters': [],
+            'inertias': []
+        }
 
         for i in range(1, maxCluster):
             kmeans = KMeans(i)
             kmeans.fit(x_scaled)
-            inertias.append({
-                'cluster': i,
-                'inertia': kmeans.inertia_
-            })
+            result['clusters'].append(i)
+            result['inertias'].append(kmeans.inertia_)
 
-        return inertias
+        return result
