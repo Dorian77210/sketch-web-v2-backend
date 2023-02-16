@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 import json
 from pandas import json_normalize
+from sklearn import preprocessing
 
 import numpy as np
 
@@ -11,8 +12,10 @@ class DataFrameService:
 
     def kmeans(csvData, clusters: int):
         input_data = pd.read_csv(StringIO(csvData), sep=',')
+        x_scaled = preprocessing.scale(input_data)
+
         k = KMeans(n_clusters=clusters, init="k-means++", n_init=10, max_iter=300)
-        k.fit(input_data.values)
+        k.fit(x_scaled)
 
         result = {
             'centroids': np.array([k.cluster_centers_]).tolist(),
