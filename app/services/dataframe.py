@@ -20,7 +20,7 @@ class DataFrameService:
 
         return result
 
-    def elbowMethod(csvData, maxCluster: int):
+    def elbow(csvData, maxCluster: int):
         input_data = pd.read_csv(StringIO(csvData), sep=',')
         x_scaled = preprocessing.scale(input_data)
 
@@ -30,7 +30,7 @@ class DataFrameService:
         }
 
         for i in range(1, maxCluster):
-            kmeans = KMeans(i)
+            kmeans = KMeans(i, n_init=10)
             kmeans.fit(x_scaled)
             result['clusters'].append(i)
             result['inertias'].append(kmeans.inertia_)

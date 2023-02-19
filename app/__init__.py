@@ -8,7 +8,7 @@ from app.routes.dataframe.elbow import ElbowRoute
 from app.config import Config
 
 def create_app(config=Config):
-    from flask_cors import CORS, cross_origin
+    from flask_cors import CORS
 
     app = Flask(__name__)
     api = Api(app)
